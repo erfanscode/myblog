@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
 from .models import Post
 
@@ -7,6 +8,7 @@ class PostListView(ListView):
     queryset        = Post.published.all()
     template_name   = 'blog/list.html'
     context_object_name = "posts"
+    paginate_by = 1
 
 class PostDetailView(DetailView):
     template_name = 'blog/detail.html'
