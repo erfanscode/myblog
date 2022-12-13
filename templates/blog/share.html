@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+        <h1>Share "{{ post.title }}" by e-mail</h1>
+        <form method="post">{% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.name|add_class:"form-control mt-2"|attr:"placeholder:name" }}
+                    </div>
+                    <!-- <div class="col-6">
+                        {{ form.email|add_class:"form-control mt-2"|attr:"placeholder:email"|attr:"readonly" }}
+                    </div> -->
+                    <div class="col-6">
+                        {{ form.to|add_class:"form-control mt-2"|attr:"placeholder:to" }}
+                    </div>
+                    <div class="col-12">
+                        {{ form.comments|add_class:"form-control mt-2"|attr:"placeholder:comment" }}
+                    </div>
+                </div>
+                <button class="btn btn-success mt-2 col-12" type="input">Post</button>
+            </div>
+        </form>
+{% endblock %}
