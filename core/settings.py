@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
 from decouple import config
 from environs import Env
@@ -30,7 +29,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd-party
     "widget_tweaks",
+    "debug_toolbar",
     # local
     "blog.apps.BlogConfig",
     "accounts.apps.AccountsConfig",
@@ -59,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware", 
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -135,10 +136,16 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Email Settings:
-EMAIL_BACKEND       = env("DJANGO_EMAIL_BACKEND")
-EMAIL_HOST          = env("DJANGO_EMAIL_HOST")
-EMAIL_USE_TLS       = env("DJANGO_EMAIL_USE_TLS")
-EMAIL_PORT          = env("DJANGO_EMAIL_PORT")
-EMAIL_HOST_USER     = env("DJANGO_EMAIL_HOST_USER")
+# Email Configuration:
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env("DJANGO_EMAIL_HOST")
+EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = env("DJANGO_EMAIL_HOST_USER")
+
+
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
