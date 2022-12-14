@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 from accounts.models import User
+from comment.models import Comment
 
 # Create your models here.
 class PublishedManager(models.Manager):
@@ -21,6 +23,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status  = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
+    comments = GenericRelation(Comment)
 
     objects     = models.Manager()
     published   = PublishedManager()

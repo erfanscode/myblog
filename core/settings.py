@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd-party
     "widget_tweaks",
     "debug_toolbar",
+    "comment",
     # local
     "blog.apps.BlogConfig",
     "accounts.apps.AccountsConfig",
