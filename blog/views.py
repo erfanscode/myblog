@@ -1,11 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.conf import settings
 from .models import Post
-from .forms import PostShareForm
 
 # Create your views here.
 class PostListView(ListView):
